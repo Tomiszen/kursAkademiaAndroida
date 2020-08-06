@@ -2,7 +2,7 @@ package com.tomisztomek.kursakademiaandroida.features.episodes.presentation.mode
 
 import com.tomisztomek.kursakademiaandroida.features.episodes.domain.model.Episode
 
-data class EpisodeDisplayable(
+class EpisodeDisplayable(
     val airDate: String,
     val characters: List<String>,
     val code: String,

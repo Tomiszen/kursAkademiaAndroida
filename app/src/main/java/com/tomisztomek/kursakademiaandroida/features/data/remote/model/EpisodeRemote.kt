@@ -3,7 +3,7 @@ package com.tomisztomek.kursakademiaandroida.features.data.remote.model
 import com.google.gson.annotations.SerializedName
 import com.tomisztomek.kursakademiaandroida.features.episodes.domain.model.Episode
 
-data class EpisodeRemote(
+class EpisodeRemote(
     @SerializedName("air_date") val airDate: String,
     @SerializedName("characters") val characters: List<String>,
     @SerializedName("created") val created: String,

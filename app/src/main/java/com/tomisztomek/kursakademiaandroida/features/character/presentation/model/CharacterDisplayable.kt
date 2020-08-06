@@ -4,7 +4,7 @@ import com.tomisztomek.kursakademiaandroida.features.character.domain.model.Char
 import com.tomisztomek.kursakademiaandroida.features.character.domain.model.CharacterLocation
 import com.tomisztomek.kursakademiaandroida.features.character.domain.model.CharacterOrigin
 
-data class CharacterDisplayable(
+class CharacterDisplayable(
     val episode: List<String>,
     val gender: String,
     val id: Int,

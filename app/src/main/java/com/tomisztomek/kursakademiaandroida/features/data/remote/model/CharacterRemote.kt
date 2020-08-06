@@ -5,7 +5,7 @@ import com.tomisztomek.kursakademiaandroida.features.character.domain.model.Char
 import com.tomisztomek.kursakademiaandroida.features.character.domain.model.CharacterLocation
 import com.tomisztomek.kursakademiaandroida.features.character.domain.model.CharacterOrigin
 
-data class CharacterRemote(
+class CharacterRemote(
     @SerializedName("episode") val episode: List<String>,
     @SerializedName("gender") val gender: String,
     @SerializedName("id") val id: Int,
@@ -34,7 +34,7 @@ data class CharacterRemote(
         )
 }
 
-data class CharacterLocationRemote(
+class CharacterLocationRemote(
     @SerializedName("name") val name: String,
     @SerializedName("url") val url: String
 ) {
@@ -45,7 +45,7 @@ data class CharacterLocationRemote(
         )
 }
 
-data class CharacterOriginRemote(
+class CharacterOriginRemote(
     @SerializedName("name") val name: String,
     @SerializedName("url") val url: String
 ) {

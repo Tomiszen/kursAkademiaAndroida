@@ -1,8 +1,8 @@
 package com.tomisztomek.kursakademiaandroida.core.di
 
 import androidx.room.Room
-import com.tomisztomek.kursakademiaandroida.features.data.AppDatabase
-import com.tomisztomek.kursakademiaandroida.features.data.DATABASE_NAME
+import com.tomisztomek.kursakademiaandroida.core.database.AppDatabase
+import com.tomisztomek.kursakademiaandroida.core.database.DATABASE_NAME
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -15,4 +15,8 @@ val DatabaseModule = module {
         )
             .build()
     }
+
+    single { get<AppDatabase>().episodeDao() }
+    single { get<AppDatabase>().locationDao() }
+    single { get<AppDatabase>().characterDao() }
 }

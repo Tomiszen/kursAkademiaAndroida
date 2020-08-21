@@ -1,6 +1,5 @@
 package com.tomisztomek.kursakademiaandroida.features.episodes.domain
 
-import com.tomisztomek.kursakademiaandroida.features.episodes.EpisodeRepository
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.GlobalScope

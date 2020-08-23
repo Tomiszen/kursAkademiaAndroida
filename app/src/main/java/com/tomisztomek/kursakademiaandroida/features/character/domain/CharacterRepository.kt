@@ -1,4 +1,4 @@
-package com.tomisztomek.kursakademiaandroida.features.character
+package com.tomisztomek.kursakademiaandroida.features.character.domain
 
 import com.tomisztomek.kursakademiaandroida.features.character.domain.model.Character
 

@@ -1,7 +1,7 @@
 package com.tomisztomek.kursakademiaandroida.core.di
 
 import com.tomisztomek.kursakademiaandroida.BuildConfig
-import com.tomisztomek.kursakademiaandroida.features.data.remote.RickAndMortyApi
+import com.tomisztomek.kursakademiaandroida.core.api.RickAndMortyApi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

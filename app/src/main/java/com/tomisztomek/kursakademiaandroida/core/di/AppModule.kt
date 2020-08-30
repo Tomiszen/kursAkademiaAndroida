@@ -12,7 +12,7 @@ import org.koin.dsl.module
 
 const val COLUMNS_COUNTER = 2
 
-val AppModule = module {
+val appModule = module {
 
     factory {
         LinearLayoutManager(this.androidContext())

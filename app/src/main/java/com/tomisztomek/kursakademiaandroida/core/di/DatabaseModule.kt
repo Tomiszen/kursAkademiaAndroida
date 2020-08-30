@@ -6,7 +6,7 @@ import com.tomisztomek.kursakademiaandroida.core.database.DATABASE_NAME
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-val DatabaseModule = module {
+val databaseModule = module {
     single {
         Room.databaseBuilder(
             androidContext(),

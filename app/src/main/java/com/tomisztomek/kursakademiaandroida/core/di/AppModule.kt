@@ -5,12 +5,13 @@ import android.net.ConnectivityManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tomisztomek.kursakademiaandroida.core.network.NetworkStateProvider
 import com.tomisztomek.kursakademiaandroida.core.network.NetworkStateProviderImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
-const val COLUMNS_COUNTER = 2
+const val COLUMNS_COUNTER = 1
 
 val appModule = module {
 
@@ -18,7 +19,7 @@ val appModule = module {
         LinearLayoutManager(this.androidContext())
     }
 
-    factory {
+    factory<RecyclerView.LayoutManager> {
         GridLayoutManager(this.androidContext(), COLUMNS_COUNTER)
     }
 

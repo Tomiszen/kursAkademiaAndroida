@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimary">#B00020</color>
+    <color name="colorPrimaryDark">#7b0016</color>
+    <color name="colorAccent">#ffbb00</color>
+    <color name="Background">#202020</color>
+    <color name="OnBackground">#32CD32</color>
+    <color name="OnPrimary">#000000</color>
+    <color name="OnBackgroundHeader">#00FF00</color>
+    <color name="Value">#7CFC00</color>
+    <color name="valueAdd">#ff00bf</color>
+    <color name="categoryBackground">#8D021F</color>
 </resources>

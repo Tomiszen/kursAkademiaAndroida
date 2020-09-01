@@ -2,6 +2,7 @@ package com.tomisztomek.kursakademiaandroida.features.episodes.data.repository
 
 import com.tomisztomek.kursakademiaandroida.core.api.RickAndMortyApi
 import com.tomisztomek.kursakademiaandroida.core.api.model.EpisodesResponse
+import com.tomisztomek.kursakademiaandroida.core.exception.ErrorWrapper
 import com.tomisztomek.kursakademiaandroida.core.network.NetworkStateProvider
 import com.tomisztomek.kursakademiaandroida.features.episodes.data.local.EpisodeDao
 import com.tomisztomek.kursakademiaandroida.features.episodes.data.local.model.EpisodeCached
@@ -26,8 +27,9 @@ internal class EpisodeRepositoryImplTest {
         val networkStateProvider = mockk<NetworkStateProvider> {
             every { isNetworkAvailable() } returns true
         }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
         val repository: EpisodeRepository =
-            EpisodeRepositoryImpl(api, episodeDao, networkStateProvider)
+            EpisodeRepositoryImpl(api, episodeDao, networkStateProvider, errorWrapper)
 
         //when
         runBlocking { repository.getEpisodes() }
@@ -46,8 +48,9 @@ internal class EpisodeRepositoryImplTest {
         val networkStateProvider = mockk<NetworkStateProvider> {
             every { isNetworkAvailable() } returns true
         }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
         val repository: EpisodeRepository =
-            EpisodeRepositoryImpl(api, episodeDao, networkStateProvider)
+            EpisodeRepositoryImpl(api, episodeDao, networkStateProvider, errorWrapper)
 
         //when
         runBlocking { repository.getEpisodes() }
@@ -66,8 +69,9 @@ internal class EpisodeRepositoryImplTest {
         val networkStateProvider = mockk<NetworkStateProvider> {
             every { isNetworkAvailable() } returns false
         }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
         val repository: EpisodeRepository =
-            EpisodeRepositoryImpl(api, episodeDao, networkStateProvider)
+            EpisodeRepositoryImpl(api, episodeDao, networkStateProvider, errorWrapper)
 
         //when
         runBlocking { repository.getEpisodes() }

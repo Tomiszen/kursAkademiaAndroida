@@ -26,7 +26,6 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/OnBackground</item>
-        <item name="android:textAllCaps">true</item>
     </style>
 
 </resources>

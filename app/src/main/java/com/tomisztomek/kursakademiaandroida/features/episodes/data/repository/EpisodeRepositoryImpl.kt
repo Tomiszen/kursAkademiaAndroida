@@ -1,6 +1,8 @@
 package com.tomisztomek.kursakademiaandroida.features.episodes.data.repository
 
 import com.tomisztomek.kursakademiaandroida.core.api.RickAndMortyApi
+import com.tomisztomek.kursakademiaandroida.core.exception.ErrorWrapper
+import com.tomisztomek.kursakademiaandroida.core.exception.callOrThrow
 import com.tomisztomek.kursakademiaandroida.core.network.NetworkStateProvider
 import com.tomisztomek.kursakademiaandroida.features.episodes.data.local.EpisodeDao
 import com.tomisztomek.kursakademiaandroida.features.episodes.data.local.model.EpisodeCached
@@ -10,12 +12,13 @@ import com.tomisztomek.kursakademiaandroida.features.episodes.domain.model.Episo
 class EpisodeRepositoryImpl(
     private val rickAndMortyApi: RickAndMortyApi,
     private val episodeDao: EpisodeDao,
-    private val networkStateProvider: NetworkStateProvider
+    private val networkStateProvider: NetworkStateProvider,
+    private val errorWrapper: ErrorWrapper
 ) : EpisodeRepository {
 
     override suspend fun getEpisodes(): List<Episode> {
         return if (networkStateProvider.isNetworkAvailable()) {
-            getEpisodesFromRemote()
+            callOrThrow(errorWrapper) { getEpisodesFromRemote() }
                 .also { saveEpisodesToLocal(it) }
         } else {
             getEpisodesFromLocal()
@@ -23,6 +26,7 @@ class EpisodeRepositoryImpl(
     }
 
     private suspend fun getEpisodesFromRemote(): List<Episode> {
+        // throw HttpException(Response.error<List<Episode>>(500, ResponseBody.Companion.create(null, "")))
         return rickAndMortyApi.getEpisodes()
             .results
             .map { it.toEpisode() }
@@ -37,6 +41,6 @@ class EpisodeRepositoryImpl(
     private suspend fun getEpisodesFromLocal(): List<Episode> {
         return episodeDao.getEpisodes()
             .map { it.toEpisode() }
-
     }
+
 }

@@ -5,11 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.tomisztomek.kursakademiaandroida.core.base.BaseViewModel
+import com.tomisztomek.kursakademiaandroida.core.exception.ErrorMapper
 import com.tomisztomek.kursakademiaandroida.features.episodes.domain.GetEpisodesUseCase
 import com.tomisztomek.kursakademiaandroida.features.episodes.domain.model.Episode
 import com.tomisztomek.kursakademiaandroida.features.episodes.presentation.model.EpisodeDisplayable
 
-class EpisodeViewModel(private val getEpisodesUseCase: GetEpisodesUseCase) : BaseViewModel() {
+class EpisodeViewModel(
+    private val getEpisodesUseCase: GetEpisodesUseCase,
+    errorMapper: ErrorMapper
+) : BaseViewModel(errorMapper) {
 
     private val _episodes by lazy {
         MutableLiveData<List<Episode>>()

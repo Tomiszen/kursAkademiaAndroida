@@ -1,6 +1,8 @@
 package com.tomisztomek.kursakademiaandroida.features.character.data.repository
 
 import com.tomisztomek.kursakademiaandroida.core.api.RickAndMortyApi
+import com.tomisztomek.kursakademiaandroida.core.exception.ErrorWrapper
+import com.tomisztomek.kursakademiaandroida.core.exception.callOrThrow
 import com.tomisztomek.kursakademiaandroida.core.network.NetworkStateProvider
 import com.tomisztomek.kursakademiaandroida.features.character.data.local.CharacterDao
 import com.tomisztomek.kursakademiaandroida.features.character.data.local.model.CharacterCached
@@ -10,12 +12,13 @@ import com.tomisztomek.kursakademiaandroida.features.character.domain.model.Char
 class CharacterRepositoryImpl(
     private val rickAndMortyApi: RickAndMortyApi,
     private val characterDao: CharacterDao,
-    private val networkStateProvider: NetworkStateProvider
+    private val networkStateProvider: NetworkStateProvider,
+    private val errorWrapper: ErrorWrapper
 ) : CharacterRepository {
 
     override suspend fun getCharacters(): List<Character> {
         return if (networkStateProvider.isNetworkAvailable()) {
-            getCharactersFromRemote()
+            callOrThrow(errorWrapper) { getCharactersFromRemote() }
                 .also { saveCharactersToLocal(it) }
         } else {
             getCharactersFromLocal()

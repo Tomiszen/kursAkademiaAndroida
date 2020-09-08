@@ -2,6 +2,7 @@ package com.tomisztomek.kursakademiaandroida.features.character.data.repository
 
 import com.tomisztomek.kursakademiaandroida.core.api.RickAndMortyApi
 import com.tomisztomek.kursakademiaandroida.core.api.model.CharactersResponse
+import com.tomisztomek.kursakademiaandroida.core.exception.ErrorWrapper
 import com.tomisztomek.kursakademiaandroida.core.network.NetworkStateProvider
 import com.tomisztomek.kursakademiaandroida.features.character.data.local.CharacterDao
 import com.tomisztomek.kursakademiaandroida.features.character.data.local.model.CharacterCached
@@ -26,8 +27,9 @@ internal class CharacterRepositoryImplTest {
         val networkStateProvider = mockk<NetworkStateProvider> {
             every { isNetworkAvailable() } returns true
         }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
         val repository: CharacterRepository =
-            CharacterRepositoryImpl(api, characterDao, networkStateProvider)
+            CharacterRepositoryImpl(api, characterDao, networkStateProvider, errorWrapper)
 
         //when
         runBlocking { repository.getCharacters() }
@@ -46,8 +48,9 @@ internal class CharacterRepositoryImplTest {
         val networkStateProvider = mockk<NetworkStateProvider> {
             every { isNetworkAvailable() } returns true
         }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
         val repository: CharacterRepository =
-            CharacterRepositoryImpl(api, characterDao, networkStateProvider)
+            CharacterRepositoryImpl(api, characterDao, networkStateProvider, errorWrapper)
 
         //when
         runBlocking { repository.getCharacters() }
@@ -69,8 +72,9 @@ internal class CharacterRepositoryImplTest {
         val networkStateProvider = mockk<NetworkStateProvider> {
             every { isNetworkAvailable() } returns false
         }
+        val errorWrapper = mockk<ErrorWrapper>(relaxed = true)
         val repository: CharacterRepository =
-            CharacterRepositoryImpl(api, characterDao, networkStateProvider)
+            CharacterRepositoryImpl(api, characterDao, networkStateProvider, errorWrapper)
 
         //when
         runBlocking { repository.getCharacters() }

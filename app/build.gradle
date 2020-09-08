@@ -48,6 +48,7 @@ dependencies {
     implementation networkDependencies.values()
     implementation navigationDependencies.values()
     implementation roomRuntimeDependencies.values()
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt roomCompilerDependencies.values()
     testImplementation testDependencies.values()
     //core dependencies

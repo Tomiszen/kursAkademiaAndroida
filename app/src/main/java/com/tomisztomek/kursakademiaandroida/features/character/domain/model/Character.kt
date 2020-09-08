@@ -12,14 +12,20 @@ class Character(
     val status: String,
     val type: String,
     val url: String
-)
+) {
+    companion object
+}
 
 class CharacterLocation(
     val name: String,
     val url: String
-)
+) {
+    companion object
+}
 
 class CharacterOrigin(
     val name: String,
     val url: String
-)
+) {
+    companion object
+}

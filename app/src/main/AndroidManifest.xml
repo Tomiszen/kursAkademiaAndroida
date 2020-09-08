@@ -3,6 +3,7 @@
     package="com.tomisztomek.kursakademiaandroida">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name=".core.app.App"
         android:allowBackup="true"

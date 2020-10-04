@@ -1,7 +1,7 @@
 package com.tomisztomek.kursakademiaandroida.core.api.model
 
 import com.google.gson.annotations.SerializedName
-import com.tomisztomek.kursakademiaandroida.features.location.domain.model.Location
+import com.tomisztomek.kursakademiaandroida.features.locations.domain.model.Location
 
 data class LocationRemote(
     @SerializedName("dimension") val dimension: String,

@@ -6,6 +6,8 @@ import com.tomisztomek.kursakademiaandroida.features.episodes.domain.GetEpisodes
 import com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.EpisodeAdapter
 import com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.EpisodeFragment
 import com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.EpisodesViewModel
+import com.tomisztomek.kursakademiaandroida.features.episodes.details.presentation.EpisodeDetailsFragment
+import com.tomisztomek.kursakademiaandroida.features.episodes.details.presentation.EpisodeViewModel
 import com.tomisztomek.kursakademiaandroida.features.episodes.navigation.EpisodeNavigator
 import com.tomisztomek.kursakademiaandroida.features.episodes.navigation.EpisodeNavigatorImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -20,7 +22,9 @@ val episodeModule = module {
 
     //presentation
     viewModel { EpisodesViewModel(get(), get(), get()) }
+    viewModel { EpisodeViewModel() }
     factory { EpisodeFragment() }
+    factory { EpisodeDetailsFragment() }
     factory { EpisodeAdapter(get()) }
-    factory<EpisodeNavigator> { EpisodeNavigatorImpl(get())}
+    factory<EpisodeNavigator> { EpisodeNavigatorImpl(get()) }
 }

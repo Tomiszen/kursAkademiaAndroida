@@ -8,6 +8,8 @@ import com.tomisztomek.kursakademiaandroida.features.locations.domain.LocationRe
 import com.tomisztomek.kursakademiaandroida.features.locations.all.presentation.LocationAdapter
 import com.tomisztomek.kursakademiaandroida.features.locations.all.presentation.LocationFragment
 import com.tomisztomek.kursakademiaandroida.features.locations.all.presentation.LocationsViewModel
+import com.tomisztomek.kursakademiaandroida.features.locations.details.presentation.LocationDetailsFragment
+import com.tomisztomek.kursakademiaandroida.features.locations.details.presentation.LocationViewModel
 import com.tomisztomek.kursakademiaandroida.features.locations.navigation.LocationNavigator
 import com.tomisztomek.kursakademiaandroida.features.locations.navigation.LocationNavigatorImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -22,7 +24,9 @@ val locationModule = module {
 
     //presentation
     viewModel { LocationsViewModel(get(), get(), get()) }
+    viewModel { LocationViewModel() }
     factory { LocationFragment() }
+    factory { LocationDetailsFragment() }
     factory { LocationAdapter(get()) }
     factory<LocationNavigator> { LocationNavigatorImpl(get()) }
 }

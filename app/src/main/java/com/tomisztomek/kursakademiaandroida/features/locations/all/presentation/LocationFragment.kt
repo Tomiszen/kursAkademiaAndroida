@@ -2,23 +2,25 @@ package com.tomisztomek.kursakademiaandroida.features.locations.all.presentation
 
 import android.view.View
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.RecyclerView
 import com.tomisztomek.kursakademiaandroida.R
 import com.tomisztomek.kursakademiaandroida.core.base.BaseFragment
+import com.tomisztomek.kursakademiaandroida.core.extenstion.viewBinding
+import com.tomisztomek.kursakademiaandroida.databinding.FragmentLocationBinding
+import kotlinx.android.synthetic.main.fragment_episode.*
 import kotlinx.android.synthetic.main.fragment_location.*
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class LocationFragment : BaseFragment<LocationsViewModel>(R.layout.fragment_location) {
 
-    override val viewModel: LocationsViewModel by viewModel()
-    private val adapter: LocationAdapter by inject()
-    private val layoutManager: RecyclerView.LayoutManager by inject()
+    private val binding by viewBinding(FragmentLocationBinding::bind)
+    private val locationAdapter: LocationAdapter by lifecycleScope.inject()
+
+    override val viewModel: LocationsViewModel by lifecycleScope.viewModel(this)
 
     override fun initView() {
         super.initView()
-        location_list.layoutManager = layoutManager
-        location_list.adapter = adapter
+        initRecycler()
     }
 
     override fun initObservers() {
@@ -38,7 +40,16 @@ class LocationFragment : BaseFragment<LocationsViewModel>(R.layout.fragment_loca
 
     private fun observeLocations() {
         viewModel.locations.observe(this) {
-            adapter.setItems(it)
+            locationAdapter.setLocations(it)
         }
     }
+
+    private fun initRecycler() {
+        with(binding.locationList) {
+            setHasFixedSize(true)
+            adapter = locationAdapter
+        }
+        locationAdapter.setOnLocationClickListener { viewModel.onLocationClick(it) }
+    }
+
 }

@@ -43,8 +43,8 @@ abstract class BaseFragment<T : BaseViewModel>(@LayoutRes layoutRes: Int) : Frag
     }
 
     private fun observeMessage() {
-        viewModel.message.observe(viewLifecycleOwner) { message ->
-            showToast(message)
+        viewModel.message.observe(viewLifecycleOwner) {
+            showToast(it)
         }
     }
 

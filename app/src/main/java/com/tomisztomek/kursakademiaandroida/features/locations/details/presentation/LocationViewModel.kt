@@ -10,7 +10,7 @@ class LocationViewModel: BaseViewModel() {
     private val _location by lazy { MutableLiveData<LocationDisplayable>() }
     val location: LiveData<LocationDisplayable> by lazy { _location }
 
-    fun onLocationPassed(character: LocationDisplayable) {
-        _location.value = character
+    fun onLocationPassed(location: LocationDisplayable) {
+        _location.value = location
     }
 }

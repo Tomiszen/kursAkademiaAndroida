@@ -28,10 +28,7 @@ class EpisodesViewModel(
 
     private fun getEpisodes(episodeLiveData: MutableLiveData<List<Episode>>) {
         setPendingState()
-        getEpisodesUseCase(
-            params = Unit,
-            scope = viewModelScope
-        ) { result ->
+        getEpisodesUseCase(Unit, viewModelScope) { result ->
             setIdleState()
             result.onSuccess { episodeLiveData.value = it }
             result.onFailure { handleFailure(it) }

@@ -11,6 +11,7 @@ import com.tomisztomek.kursakademiaandroida.features.episodes.details.presentati
 import com.tomisztomek.kursakademiaandroida.features.episodes.navigation.EpisodeNavigator
 import com.tomisztomek.kursakademiaandroida.features.episodes.navigation.EpisodeNavigatorImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val episodeModule = module {
@@ -21,10 +22,14 @@ val episodeModule = module {
     factory { GetEpisodesUseCase(get()) }
 
     //presentation
-    viewModel { EpisodesViewModel(get(), get(), get()) }
-    viewModel { EpisodeViewModel() }
-    factory { EpisodeFragment() }
-    factory { EpisodeDetailsFragment() }
-    factory { EpisodeAdapter(get()) }
-    factory<EpisodeNavigator> { EpisodeNavigatorImpl(get()) }
+    factory<EpisodeNavigator> {EpisodeNavigatorImpl(get())}
+
+    scope(named<EpisodeFragment>()) {
+        viewModel { EpisodesViewModel(get(), get(), get()) }
+        factory { EpisodeAdapter() }
+    }
+
+    scope(named<EpisodeDetailsFragment>()) {
+        viewModel { EpisodeViewModel() }
+    }
 }

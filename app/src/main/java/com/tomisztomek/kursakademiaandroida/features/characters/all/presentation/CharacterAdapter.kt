@@ -5,37 +5,54 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tomisztomek.kursakademiaandroida.R
-import com.tomisztomek.kursakademiaandroida.core.base.BaseAdapter
+import com.tomisztomek.kursakademiaandroida.databinding.CharacterItemBinding
 import com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.model.CharacterDisplayable
-import kotlinx.android.synthetic.main.character_item.view.*
 
-class CharacterAdapter(private val charactersViewModel: CharactersViewModel) :
-    BaseAdapter<CharacterDisplayable>() {
+class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
+    private val characters by lazy {mutableListOf<CharacterDisplayable>() }
+    private var listener: ((CharacterDisplayable) -> Unit)? = null
+
+    fun setCharacters(characters: List<CharacterDisplayable>) {
+        if (characters.isNotEmpty()) {
+            this.characters.clear()
+        }
+
+        this.characters.addAll(characters)
+        notifyDataSetChanged()
+    }
+
+    fun setOnCharacterClickListener(listener: (CharacterDisplayable) -> Unit) {
+        this.listener=listener
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterAdapter.CharacterViewHolder {
         val itemView = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.character_item, parent, false)
 
-        return CharacterViewHolder(itemView, charactersViewModel)
+        return CharacterAdapter.CharacterViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val character = items[position]
-        (holder as CharacterViewHolder).bind(character)
+    override fun getItemCount(): Int = characters.size
+
+    override fun onBindViewHolder(holder: CharacterAdapter.CharacterViewHolder, position: Int) {
+        val character = characters[position]
+        holder.bind(character, listener)
     }
 
-    class CharacterViewHolder(itemView: View, charactersViewModel: CharactersViewModel) :
-        RecyclerView.ViewHolder(itemView) {
-        private var mCharactersViewModel: CharactersViewModel = charactersViewModel
+    class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val binding = CharacterItemBinding.bind(itemView)
 
-        fun bind(character: CharacterDisplayable) {
-            with(itemView) {
-                character_name.text = character.name
-                character_gender.text = character.gender
-                character_type.text = character.type
-                setOnClickListener { mCharactersViewModel.onCharacterClick(character) }
-
+        fun bind(
+            character: CharacterDisplayable,
+            listener: ((CharacterDisplayable) -> Unit)?
+        ) {
+            with(binding) {
+                characterName.text = character.name
+                characterGender.text = character.gender
+                characterSpecies.text = character.species
+                listener?.let {root.setOnClickListener{ it(character)} }
             }
         }
     }

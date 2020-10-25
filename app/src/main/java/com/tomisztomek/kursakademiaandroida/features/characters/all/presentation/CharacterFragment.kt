@@ -2,23 +2,24 @@ package com.tomisztomek.kursakademiaandroida.features.characters.all.presentatio
 
 import android.view.View
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.RecyclerView
 import com.tomisztomek.kursakademiaandroida.R
 import com.tomisztomek.kursakademiaandroida.core.base.BaseFragment
+import com.tomisztomek.kursakademiaandroida.core.extenstion.viewBinding
+import com.tomisztomek.kursakademiaandroida.databinding.FragmentCharacterBinding
 import kotlinx.android.synthetic.main.fragment_character.*
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class CharacterFragment : BaseFragment<CharactersViewModel>(R.layout.fragment_character) {
 
-    override val viewModel: CharactersViewModel by viewModel()
-    private val adapter: CharacterAdapter by inject()
-    private val layoutManager: RecyclerView.LayoutManager by inject()
+    private val binding by viewBinding(FragmentCharacterBinding::bind)
+    private val characterAdapter: CharacterAdapter by lifecycleScope.inject()
+
+    override val viewModel: CharactersViewModel by lifecycleScope.viewModel(this)
 
     override fun initView() {
         super.initView()
-        character_list.layoutManager = layoutManager
-        character_list.adapter = adapter
+        initRecycler()
     }
 
     override fun initObservers() {
@@ -38,7 +39,15 @@ class CharacterFragment : BaseFragment<CharactersViewModel>(R.layout.fragment_ch
 
     private fun observeCharacters() {
         viewModel.characters.observe(this) {
-            adapter.setItems(it)
+            characterAdapter.setCharacters(it)
         }
+    }
+
+    private fun initRecycler() {
+        with(binding.characterList) {
+            setHasFixedSize(true)
+            adapter = characterAdapter
+        }
+        characterAdapter.setOnCharacterClickListener { viewModel.onCharacterClick(it) }
     }
 }

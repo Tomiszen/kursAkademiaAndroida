@@ -2,23 +2,24 @@ package com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation
 
 import android.view.View
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.RecyclerView
 import com.tomisztomek.kursakademiaandroida.R
 import com.tomisztomek.kursakademiaandroida.core.base.BaseFragment
+import com.tomisztomek.kursakademiaandroida.core.extenstion.viewBinding
+import com.tomisztomek.kursakademiaandroida.databinding.FragmentEpisodeBinding
 import kotlinx.android.synthetic.main.fragment_episode.*
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class EpisodeFragment : BaseFragment<EpisodesViewModel>(R.layout.fragment_episode) {
 
-    override val viewModel: EpisodesViewModel by viewModel()
-    private val adapter: EpisodeAdapter by inject()
-    private val layoutManager: RecyclerView.LayoutManager by inject()
+    private val binding by viewBinding(FragmentEpisodeBinding::bind)
+    private val episodeAdapter: EpisodeAdapter by lifecycleScope.inject()
+
+    override val viewModel: EpisodesViewModel by lifecycleScope.inject()
 
     override fun initView() {
         super.initView()
-        episode_list.layoutManager = layoutManager
-        episode_list.adapter = adapter
+        initRecycler()
     }
 
     override fun initObservers() {
@@ -36,18 +37,19 @@ class EpisodeFragment : BaseFragment<EpisodesViewModel>(R.layout.fragment_episod
         episode_progress_bar.visibility = View.VISIBLE
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        episode_list.layoutManager=null
-        episode_list.adapter=null
-    }
-
     private fun observeEpisodes() {
         viewModel.episodes.observe(this) {
-            adapter.setItems(it)
+            episodeAdapter.setEpisodes(it)
         }
     }
 
+    private fun initRecycler() {
+        with(binding.episodeList) {
+            setHasFixedSize(true)
+            adapter = episodeAdapter
+        }
+        episodeAdapter.setOnEpisodeClickListener { viewModel.onEpisodeClick(it) }
 
+    }
 
 }

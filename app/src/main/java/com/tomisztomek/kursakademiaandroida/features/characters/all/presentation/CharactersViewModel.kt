@@ -10,7 +10,6 @@ import com.tomisztomek.kursakademiaandroida.features.characters.domain.GetCharac
 import com.tomisztomek.kursakademiaandroida.features.characters.domain.model.Character
 import com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.model.CharacterDisplayable
 import com.tomisztomek.kursakademiaandroida.features.characters.navigation.CharacterNavigator
-import com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.model.EpisodeDisplayable
 
 class CharactersViewModel(
     private val getCharactersUseCase: GetCharactersUseCase,
@@ -29,10 +28,7 @@ class CharactersViewModel(
 
     private fun getCharacters(characterLiveData: MutableLiveData<List<Character>>) {
         setPendingState()
-        getCharactersUseCase(
-            params = Unit,
-            scope = viewModelScope
-        ) { result ->
+        getCharactersUseCase(Unit, viewModelScope) { result ->
             setIdleState()
             result.onSuccess { characterLiveData.value = it }
             result.onFailure { handleFailure(it) }

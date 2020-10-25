@@ -11,6 +11,7 @@ import com.tomisztomek.kursakademiaandroida.features.characters.details.presenta
 import com.tomisztomek.kursakademiaandroida.features.characters.navigation.CharacterNavigator
 import com.tomisztomek.kursakademiaandroida.features.characters.navigation.CharacterNavigatorImpl
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val characterModule = module {
@@ -21,10 +22,14 @@ val characterModule = module {
     factory { GetCharactersUseCase(get()) }
 
     //presentation
-    viewModel { CharactersViewModel(get(), get(), get()) }
-    viewModel { CharacterViewModel() }
-    factory { CharacterFragment() }
-    factory { CharacterDetailsFragment() }
-    factory { CharacterAdapter(get()) }
     factory<CharacterNavigator> { CharacterNavigatorImpl(get()) }
+
+    scope(named<CharacterFragment>()) {
+        viewModel { CharactersViewModel(get(), get(), get()) }
+        factory { CharacterAdapter() }
+    }
+
+    scope(named<CharacterDetailsFragment>()) {
+        viewModel { CharacterViewModel() }
+    }
 }

@@ -6,7 +6,6 @@ import com.tomisztomek.kursakademiaandroida.R
 import com.tomisztomek.kursakademiaandroida.core.base.BaseFragment
 import com.tomisztomek.kursakademiaandroida.core.extenstion.viewBinding
 import com.tomisztomek.kursakademiaandroida.databinding.FragmentLocationBinding
-import kotlinx.android.synthetic.main.fragment_episode.*
 import kotlinx.android.synthetic.main.fragment_location.*
 import org.koin.androidx.scope.lifecycleScope
 import org.koin.androidx.viewmodel.scope.viewModel

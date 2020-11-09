@@ -1,9 +1,9 @@
 package com.tomisztomek.kursakademiaandroida.core.api.model
 
 import com.google.gson.annotations.SerializedName
-import com.tomisztomek.kursakademiaandroida.features.character.domain.model.Character
-import com.tomisztomek.kursakademiaandroida.features.character.domain.model.CharacterLocation
-import com.tomisztomek.kursakademiaandroida.features.character.domain.model.CharacterOrigin
+import com.tomisztomek.kursakademiaandroida.features.characters.domain.model.Character
+import com.tomisztomek.kursakademiaandroida.features.characters.domain.model.CharacterLocation
+import com.tomisztomek.kursakademiaandroida.features.characters.domain.model.CharacterOrigin
 
 data class CharacterRemote(
     @SerializedName("id") val id: Int,

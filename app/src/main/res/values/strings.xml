@@ -6,8 +6,12 @@
     <string name="Episodes">Episodes</string>
     <string name="Locations">Locations</string>
     <string name="Characters">Characters</string>
+    <string name="Episode_details">Episode details</string>
+    <string name="Location_details">Location details</string>
+    <string name="Character_details">Character details</string>
 
     <string name="error_internal">Houston, we have a server-side problem. Try again in a few minutes.</string>
     <string name="error_bad_request">Validation error. Please check input parameter</string>
     <string name="error_unknown">Ops... Something went wrong</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

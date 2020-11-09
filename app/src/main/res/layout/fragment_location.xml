@@ -1,35 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".features.location.presentation.LocationFragment">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="com.tomisztomek.kursakademiaandroida.features.locations.all.presentation.LocationFragment">
 
-    <LinearLayout
+    <TextView
+        style="@style/style_headlines"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/Locations" />
+
+    <ProgressBar
+        android:id="@+id/location_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/location_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/Locations"
-            style="@style/style_headlines" />
-
-        <ProgressBar
-            android:id="@+id/location_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/location_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:dividerHeight="24dp" />
+        android:dividerHeight="24dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
-    </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

@@ -3,12 +3,12 @@ package com.tomisztomek.kursakademiaandroida.core.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.tomisztomek.kursakademiaandroida.features.character.data.local.CharacterDao
-import com.tomisztomek.kursakademiaandroida.features.character.data.local.model.CharacterCached
+import com.tomisztomek.kursakademiaandroida.features.characters.data.local.CharacterDao
+import com.tomisztomek.kursakademiaandroida.features.characters.data.local.model.CharacterCached
 import com.tomisztomek.kursakademiaandroida.features.episodes.data.local.EpisodeDao
 import com.tomisztomek.kursakademiaandroida.features.episodes.data.local.model.EpisodeCached
-import com.tomisztomek.kursakademiaandroida.features.location.data.local.LocationDao
-import com.tomisztomek.kursakademiaandroida.features.location.data.local.model.LocationCached
+import com.tomisztomek.kursakademiaandroida.features.locations.data.local.LocationDao
+import com.tomisztomek.kursakademiaandroida.features.locations.data.local.model.LocationCached
 
 const val DATABASE_NAME = "db_name"
 

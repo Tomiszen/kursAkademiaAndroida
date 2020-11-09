@@ -1,16 +1,21 @@
 package com.tomisztomek.kursakademiaandroida.features.mock
 
 import com.tomisztomek.kursakademiaandroida.core.api.model.*
-import com.tomisztomek.kursakademiaandroida.features.character.data.local.model.CharacterCached
-import com.tomisztomek.kursakademiaandroida.features.character.data.local.model.CharacterLocationCached
-import com.tomisztomek.kursakademiaandroida.features.character.data.local.model.CharacterOriginCached
-import com.tomisztomek.kursakademiaandroida.features.character.domain.model.Character
-import com.tomisztomek.kursakademiaandroida.features.character.domain.model.CharacterLocation
-import com.tomisztomek.kursakademiaandroida.features.character.domain.model.CharacterOrigin
+import com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.model.CharacterDisplayable
+import com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.model.CharacterLocationDisplayable
+import com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.model.CharacterOriginDisplayable
+import com.tomisztomek.kursakademiaandroida.features.characters.data.local.model.CharacterCached
+import com.tomisztomek.kursakademiaandroida.features.characters.data.local.model.CharacterLocationCached
+import com.tomisztomek.kursakademiaandroida.features.characters.data.local.model.CharacterOriginCached
+import com.tomisztomek.kursakademiaandroida.features.characters.domain.model.Character
+import com.tomisztomek.kursakademiaandroida.features.characters.domain.model.CharacterLocation
+import com.tomisztomek.kursakademiaandroida.features.characters.domain.model.CharacterOrigin
+import com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.model.EpisodeDisplayable
 import com.tomisztomek.kursakademiaandroida.features.episodes.data.local.model.EpisodeCached
 import com.tomisztomek.kursakademiaandroida.features.episodes.domain.model.Episode
-import com.tomisztomek.kursakademiaandroida.features.location.data.local.model.LocationCached
-import com.tomisztomek.kursakademiaandroida.features.location.domain.model.Location
+import com.tomisztomek.kursakademiaandroida.features.locations.all.presentation.model.LocationDisplayable
+import com.tomisztomek.kursakademiaandroida.features.locations.data.local.model.LocationCached
+import com.tomisztomek.kursakademiaandroida.features.locations.domain.model.Location
 import org.jetbrains.annotations.TestOnly
 
 @TestOnly
@@ -193,4 +198,51 @@ fun CharacterLocation.Companion.mock() = CharacterLocation(
 fun CharacterOrigin.Companion.mock() = CharacterOrigin(
     name = "character origin name",
     url = "character url name"
+)
+
+@TestOnly
+fun EpisodeDisplayable.Companion.mock() = EpisodeDisplayable(
+    id = 1,
+    name = "episode name",
+    airDate = "episode air date",
+    code = "episode code",
+    characters = emptyList(),
+    url = "episode url"
+)
+
+@TestOnly
+fun CharacterDisplayable.Companion.mock() = CharacterDisplayable(
+    episode = emptyList(),
+    gender = "character gender",
+    id = 1,
+    image = "character image",
+    location = CharacterLocationDisplayable.mock(),
+    name = "character name",
+    origin = CharacterOriginDisplayable.mock(),
+    species = "character species",
+    status = "character status",
+    type = "character type",
+    url = "character url"
+)
+
+@TestOnly
+fun CharacterLocationDisplayable.Companion.mock() = CharacterLocationDisplayable(
+    name = "character location name",
+    url = "character location url"
+)
+
+@TestOnly
+fun CharacterOriginDisplayable.Companion.mock() = CharacterOriginDisplayable(
+    name = "character origin name",
+    url = "character url name"
+)
+
+@TestOnly
+fun LocationDisplayable.Companion.mock() = LocationDisplayable(
+    id = 1,
+    name = "location name",
+    dimension = "location dimension",
+    residents = emptyList(),
+    type = "location type",
+    url = "location url"
 )

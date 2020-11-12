@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingBottom="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/character_name"
-        android:layout_width="wrap_content"
+    <data>
+        <import type="com.tomisztomek.kursakademiaandroida.R" />
+        <variable
+            name="item"
+            type="com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.model.CharacterDisplayable" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/style_item" />
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/character_species"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/style_item" />
+        <ImageView
+            android:id="@+id/episode_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:imageURL="@{item.image}"
+            app:placeholder="@{R.drawable.ic_launcher_background}"/>
 
-    <TextView
-        android:id="@+id/character_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/style_item" />
+        <TextView
+            android:id="@+id/character_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.name}"
+            style="@style/style_item" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/character_species"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.species}"
+            style="@style/style_item" />
+
+        <TextView
+            android:id="@+id/character_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.gender}"
+            style="@style/style_item" />
+
+    </LinearLayout>
+</layout>

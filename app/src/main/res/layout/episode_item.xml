@@ -1,27 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingBottom="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/episode_title"
-        android:layout_width="wrap_content"
+    <data>
+        <import type="com.tomisztomek.kursakademiaandroida.R" />
+        <variable
+            name="item"
+            type="com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.model.EpisodeDisplayable" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/style_item" />
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/episode_air_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/style_item" />
 
-    <TextView
-        android:id="@+id/episode_code"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/style_item" />
+        <ImageView
+            android:id="@+id/episode_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:imageURL="@{item.url}"
+            app:placeholder="@{R.drawable.ic_launcher_background}"/>
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/episode_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.name}"
+            style="@style/style_item" />
+
+        <TextView
+            android:id="@+id/episode_air_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.airDate}"
+            style="@style/style_item" />
+
+        <TextView
+            android:id="@+id/episode_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.code}"
+            style="@style/style_item" />
+
+    </LinearLayout>
+</layout>

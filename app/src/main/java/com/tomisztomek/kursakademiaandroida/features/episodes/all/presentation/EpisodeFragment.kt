@@ -1,55 +1,43 @@
 package com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation
 
-import android.view.View
-import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.tomisztomek.kursakademiaandroida.BR
 import com.tomisztomek.kursakademiaandroida.R
 import com.tomisztomek.kursakademiaandroida.core.base.BaseFragment
-import com.tomisztomek.kursakademiaandroida.core.extenstion.viewBinding
 import com.tomisztomek.kursakademiaandroida.databinding.FragmentEpisodeBinding
-import kotlinx.android.synthetic.main.fragment_episode.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
-import org.koin.androidx.viewmodel.scope.viewModel
 
-class EpisodeFragment : BaseFragment<EpisodesViewModel>(R.layout.fragment_episode) {
+class EpisodeFragment : BaseFragment<EpisodesViewModel, FragmentEpisodeBinding>(
+    BR.viewModel,
+    R.layout.fragment_episode
+) {
 
-    private val binding by viewBinding(FragmentEpisodeBinding::bind)
     private val episodeAdapter: EpisodeAdapter by lifecycleScope.inject()
-
     override val viewModel: EpisodesViewModel by lifecycleScope.inject()
+    private val linearLayoutManager: LinearLayoutManager by inject()
+    private val divider: DividerItemDecoration by inject()
 
-    override fun initView() {
-        super.initView()
-        initRecycler()
+    override fun initView(binding: FragmentEpisodeBinding) {
+        super.initView(binding)
+        initRecycler(binding)
     }
 
-    override fun initObservers() {
-        super.initObservers()
-        observeEpisodes()
-    }
-
-    override fun onIdleState() {
-        super.onIdleState()
-        episode_progress_bar.visibility = View.GONE
-    }
-
-    override fun onPendingState() {
-        super.onPendingState()
-        episode_progress_bar.visibility = View.VISIBLE
-    }
-
-    private fun observeEpisodes() {
-        viewModel.episodes.observe(this) {
-            episodeAdapter.setEpisodes(it)
+    override fun onDestroyView() {
+        binding?.episodeList?.let {
+            it.layoutManager = null
+            it.adapter = null
         }
+        super.onDestroyView()
     }
 
-    private fun initRecycler() {
+    private fun initRecycler(binding: FragmentEpisodeBinding) {
         with(binding.episodeList) {
+            layoutManager = linearLayoutManager
+            addItemDecoration(divider)
             setHasFixedSize(true)
             adapter = episodeAdapter
         }
-        episodeAdapter.setOnEpisodeClickListener { viewModel.onEpisodeClick(it) }
-
     }
-
 }

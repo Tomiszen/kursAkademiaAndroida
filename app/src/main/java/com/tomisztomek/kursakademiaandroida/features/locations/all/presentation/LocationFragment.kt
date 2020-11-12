@@ -1,54 +1,43 @@
 package com.tomisztomek.kursakademiaandroida.features.locations.all.presentation
 
-import android.view.View
-import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.tomisztomek.kursakademiaandroida.BR
 import com.tomisztomek.kursakademiaandroida.R
 import com.tomisztomek.kursakademiaandroida.core.base.BaseFragment
-import com.tomisztomek.kursakademiaandroida.core.extenstion.viewBinding
 import com.tomisztomek.kursakademiaandroida.databinding.FragmentLocationBinding
-import kotlinx.android.synthetic.main.fragment_location.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
-import org.koin.androidx.viewmodel.scope.viewModel
 
-class LocationFragment : BaseFragment<LocationsViewModel>(R.layout.fragment_location) {
+class LocationFragment : BaseFragment<LocationsViewModel, FragmentLocationBinding>(
+    BR.viewModel,
+    R.layout.fragment_location
+) {
 
-    private val binding by viewBinding(FragmentLocationBinding::bind)
     private val locationAdapter: LocationAdapter by lifecycleScope.inject()
+    override val viewModel: LocationsViewModel by lifecycleScope.inject()
+    private val linearLayoutManager: LinearLayoutManager by inject()
+    private val divider: DividerItemDecoration by inject()
 
-    override val viewModel: LocationsViewModel by lifecycleScope.viewModel(this)
-
-    override fun initView() {
-        super.initView()
-        initRecycler()
+    override fun initView(binding: FragmentLocationBinding) {
+        super.initView(binding)
+        initRecycler(binding)
     }
 
-    override fun initObservers() {
-        super.initObservers()
-        observeLocations()
-    }
-
-    override fun onIdleState() {
-        super.onIdleState()
-        location_progress_bar.visibility = View.GONE
-    }
-
-    override fun onPendingState() {
-        super.onPendingState()
-        location_progress_bar.visibility = View.VISIBLE
-    }
-
-    private fun observeLocations() {
-        viewModel.locations.observe(this) {
-            locationAdapter.setLocations(it)
+    override fun onDestroyView() {
+        binding?.locationList?.let {
+            it.layoutManager = null
+            it.adapter = null
         }
+        super.onDestroyView()
     }
 
-    private fun initRecycler() {
+    private fun initRecycler(binding: FragmentLocationBinding) {
         with(binding.locationList) {
+            layoutManager = linearLayoutManager
+            addItemDecoration(divider)
             setHasFixedSize(true)
             adapter = locationAdapter
         }
-        locationAdapter.setOnLocationClickListener { viewModel.onLocationClick(it) }
     }
-
 }

@@ -1,58 +1,47 @@
 package com.tomisztomek.kursakademiaandroida.features.characters.all.presentation
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.tomisztomek.kursakademiaandroida.R
+import com.tomisztomek.kursakademiaandroida.core.adapter.BindableAdapter
 import com.tomisztomek.kursakademiaandroida.databinding.CharacterItemBinding
 import com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.model.CharacterDisplayable
 
-class CharacterAdapter : RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
+class CharacterAdapter : BindableAdapter<CharacterDisplayable>,
+    RecyclerView.Adapter<CharacterAdapter.CharacterViewHolder>() {
 
-    private val characters by lazy {mutableListOf<CharacterDisplayable>() }
+    private val characters by lazy { mutableListOf<CharacterDisplayable>() }
     private var listener: ((CharacterDisplayable) -> Unit)? = null
 
-    fun setCharacters(characters: List<CharacterDisplayable>) {
+    override fun setItems(items: List<CharacterDisplayable>) {
         if (characters.isNotEmpty()) {
             this.characters.clear()
         }
-
         this.characters.addAll(characters)
         notifyDataSetChanged()
     }
 
-    fun setOnCharacterClickListener(listener: (CharacterDisplayable) -> Unit) {
-        this.listener=listener
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = CharacterItemBinding.inflate(inflater, parent, false)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterAdapter.CharacterViewHolder {
-        val itemView = LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.character_item, parent, false)
-
-        return CharacterAdapter.CharacterViewHolder(itemView)
+        return CharacterViewHolder(binding)
     }
 
     override fun getItemCount(): Int = characters.size
 
-    override fun onBindViewHolder(holder: CharacterAdapter.CharacterViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
         val character = characters[position]
-        holder.bind(character, listener)
+        holder.bind(character)
     }
 
-    class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = CharacterItemBinding.bind(itemView)
-
-        fun bind(
-            character: CharacterDisplayable,
-            listener: ((CharacterDisplayable) -> Unit)?
-        ) {
+    inner class CharacterViewHolder(private val binding: CharacterItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(character: CharacterDisplayable) {
             with(binding) {
-                characterName.text = character.name
-                characterGender.text = character.gender
-                characterSpecies.text = character.species
-                listener?.let {root.setOnClickListener{ it(character)} }
+                item = character
+                listener?.let { root.setOnClickListener { it(character) } }
+                binding.executePendingBindings()
             }
         }
     }

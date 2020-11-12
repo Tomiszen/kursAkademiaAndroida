@@ -1,53 +1,43 @@
 package com.tomisztomek.kursakademiaandroida.features.characters.all.presentation
 
-import android.view.View
-import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tomisztomek.kursakademiaandroida.R
+import com.tomisztomek.kursakademiaandroida.BR
 import com.tomisztomek.kursakademiaandroida.core.base.BaseFragment
-import com.tomisztomek.kursakademiaandroida.core.extenstion.viewBinding
 import com.tomisztomek.kursakademiaandroida.databinding.FragmentCharacterBinding
-import kotlinx.android.synthetic.main.fragment_character.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.lifecycleScope
-import org.koin.androidx.viewmodel.scope.viewModel
 
-class CharacterFragment : BaseFragment<CharactersViewModel>(R.layout.fragment_character) {
+class CharacterFragment : BaseFragment<CharactersViewModel, FragmentCharacterBinding>(
+    BR.viewModel,
+    R.layout.fragment_character
+) {
 
-    private val binding by viewBinding(FragmentCharacterBinding::bind)
     private val characterAdapter: CharacterAdapter by lifecycleScope.inject()
+    override val viewModel: CharactersViewModel by lifecycleScope.inject()
+    private val linearLayoutManager: LinearLayoutManager by inject()
+    private val divider: DividerItemDecoration by inject()
 
-    override val viewModel: CharactersViewModel by lifecycleScope.viewModel(this)
-
-    override fun initView() {
-        super.initView()
-        initRecycler()
+    override fun initView(binding: FragmentCharacterBinding) {
+        super.initView(binding)
+        initRecycler(binding)
     }
 
-    override fun initObservers() {
-        super.initObservers()
-        observeCharacters()
-    }
-
-    override fun onIdleState() {
-        super.onIdleState()
-        character_progress_bar.visibility = View.GONE
-    }
-
-    override fun onPendingState() {
-        super.onPendingState()
-        character_progress_bar.visibility = View.VISIBLE
-    }
-
-    private fun observeCharacters() {
-        viewModel.characters.observe(this) {
-            characterAdapter.setCharacters(it)
+    override fun onDestroyView() {
+        binding?.characterList?.let {
+            it.layoutManager = null
+            it.adapter = null
         }
+        super.onDestroyView()
     }
 
-    private fun initRecycler() {
+    private fun initRecycler(binding: FragmentCharacterBinding) {
         with(binding.characterList) {
+            layoutManager = linearLayoutManager
+            addItemDecoration(divider)
             setHasFixedSize(true)
             adapter = characterAdapter
         }
-        characterAdapter.setOnCharacterClickListener { viewModel.onCharacterClick(it) }
     }
 }

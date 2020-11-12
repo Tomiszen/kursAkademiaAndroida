@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context="com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.CharacterFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        style="@style/style_headlines"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/Characters" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.CharactersViewModel" />
+    </data>
 
-    <ProgressBar
-        android:id="@+id/character_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/character_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="24dp"
         android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        tools:context="com.tomisztomek.kursakademiaandroida.features.characters.all.presentation.CharacterFragment">
+
+        <TextView
+            style="@style/style_headlines"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/Characters" />
+
+        <ProgressBar
+            android:id="@+id/character_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/character_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="24dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:items="@{viewModel.characters}"/>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

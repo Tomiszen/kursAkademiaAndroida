@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    tools:context="com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.EpisodeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        style="@style/style_headlines"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/Episodes" />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.EpisodesViewModel" />
+    </data>
 
-    <ProgressBar
-        android:id="@+id/episode_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/episode_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="24dp"
         android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        tools:context="com.tomisztomek.kursakademiaandroida.features.episodes.all.presentation.EpisodeFragment">
+
+        <TextView
+            style="@style/style_headlines"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/Episodes" />
+
+        <ProgressBar
+            android:id="@+id/episode_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:showOnPendingState="@{viewModel.uiState}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/episode_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="24dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:items="@{viewModel.episodes}"/>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>
